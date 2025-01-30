@@ -1,0 +1,53 @@
+services:
+  php_runtime:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.php
+    image: code_executor_php
+
+  java_runtime:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.java
+    image: code_executor_java
+
+  python_runtime:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.python
+    image: code_executor_python
+
+  javascript_runtime:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.node
+    image: code_executor_node
+
+  api:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./app/ui:/app/ui
+
+  worker:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: worker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./app/ui:/app/ui
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    command: [ "python", "worker.py" ]
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7.4
+    container_name: redis
+    restart: always

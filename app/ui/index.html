@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Execution Engine</title>
+    <script src="ui/api_tester.js"></script>
+    <link rel="stylesheet" type="text/css" href="ui/styles.css">
+</head>
+<body>
+<h1>Code Execution Engine</h1>
+
+<select id="language">
+    <option value="python">Python</option>
+    <option value="javascript">JavaScript</option>
+    <option value="java">Java</option>
+    <option value="php">PHP</option>
+</select>
+<textarea id="code" placeholder="Enter code here..."></textarea>
+<button onclick="executeCode()">Run Code</button>
+<button onclick="fetchHistory()">View Execution History</button>
+
+<h2>Execution Result</h2>
+<pre id="result-output"></pre>
+
+<h2>Execution History</h2>
+<div id="history-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Language</th>
+                <th>Code</th>
+                <th>Output</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody id="history-output">
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
